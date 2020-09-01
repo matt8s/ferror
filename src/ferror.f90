@@ -391,28 +391,30 @@ contains
     !! @param[in] msg The error message.
     !! @param[in] flag The error flag.
     subroutine er_log_error(this, fcn, msg, flag)
+        USE, INTRINSIC :: ISO_FORTRAN_ENV, ONLY : int16
+        implicit none
         ! Arguments
         class(errors), intent(in) :: this
         character(len = *), intent(in) :: fcn, msg
         integer(int32), intent(in) :: flag
 
         ! Local Variables
-        integer(int32) :: fid, time(3), date(3)
+        integer(int32) :: fid
+        INTEGER(int16), DIMENSION(8) :: date
 
         ! Open the file
         open(newunit = fid, file = this%m_fname, access = "append")
 
         ! Determine the time
-        call itime(time)
-        call idate(date)
-
+        CALL DATE_AND_TIME(date)
+        
         ! Write the error information
         write(fid, '(A)') ""
         write(fid, '(A)') "***** ERROR *****"
-        write(fid, '(I0AI0AI0AI0AI0AI0)') date(1), "/", date(2), "/", date(3), &
-            "; ", time(1), ":", time(2), ":", time(3)
+        write(fid, '(5(I,A),I)') date(3), "/", date(2), "/", date(1), &
+            "; ", date(5), ":", date(6), ":", date(7)
         write(fid, '(A)') "Function: " // fcn
-        write(fid, '(AI0)') "Error Flag: ", flag
+        write(fid, '(A12,I)') "Error Flag: ", flag
         write(fid, '(A)') "Message:"
         write(fid, '(A)') msg
         write(fid, '(A)') ""
