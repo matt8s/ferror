@@ -294,7 +294,7 @@ contains
             print *, ""
             print '(A)', "***** ERROR *****"
             print '(A)', "Function: " // fcn
-            print '(AI0)', "Error Flag: ", flag
+            print '(A12,I)', "Error Flag: ", flag
             print '(A)', "Message:"
             print '(A)', msg
             print *, ""
@@ -359,7 +359,7 @@ contains
             print *, ""
             print '(A)', "***** WARNING *****"
             print '(A)', "Function: " // fcn
-            print '(AI0)', "Warning Flag: ", flag
+            print '(A14,I)', "Warning Flag: ", flag
             print '(A)', "Message:"
             print '(A)', msg
             print *, ""
