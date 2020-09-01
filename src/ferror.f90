@@ -406,7 +406,7 @@ contains
         open(newunit = fid, file = this%m_fname, access = "append")
 
         ! Determine the time
-        CALL DATE_AND_TIME(date)
+        CALL DATE_AND_TIME(VALUES=date)
         
         ! Write the error information
         write(fid, '(A)') ""
